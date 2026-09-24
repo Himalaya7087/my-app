@@ -4,8 +4,6 @@ env:
   variables:
     AWS_REGION: ap-south-1      # change to your region
     REPO_NAME: my-app           # your ECR repository name
-    FRONTEND_BUCKET: my-app-frontend-dev-205429787317   # S3 bucket hosting the static frontend
-    API_URL: http://13.203.158.72                        # backend (EC2) URL the frontend calls
 
 phases:
   pre_build:
@@ -34,10 +32,6 @@ phases:
       - echo "AWS_REGION=$AWS_REGION" >> scripts/image.env
       - echo "REGISTRY=$REGISTRY" >> scripts/image.env
       - cat scripts/image.env
-      - echo "Deploying frontend to s3://$FRONTEND_BUCKET..."
-      - echo "window.APP_CONFIG = { API_URL:\"$API_URL\", FRONTEND_VERSION:\"$IMAGE_TAG\" };" > frontend/config.js
-      - aws s3 sync frontend/ s3://$FRONTEND_BUCKET/ --delete --exclude "*.html" --exclude "config.js" --cache-control "max-age=300"
-      - aws s3 cp frontend/ s3://$FRONTEND_BUCKET/ --recursive --exclude "*" --include "*.html" --include "config.js" --cache-control "no-cache"
 
 artifacts:
   files:
