@@ -5,6 +5,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const VERSION = process.env.APP_VERSION || "local";
 const STARTED = new Date().toISOString();
+// Origin of the S3-hosted frontend allowed to call this API
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
+
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", CORS_ORIGIN);
+  next();
+});
 
 app.get("/", (req, res) => {
   res.send(`<!doctype html>
