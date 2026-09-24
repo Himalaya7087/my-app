@@ -34,4 +34,4 @@ Pushing to `main` builds the image, pushes it to ECR and deploys it to EC2.
 4. CodeBuild project: **Privileged mode ON**. Its role needs ECR push permissions.
 5. CodeDeploy: create an EC2/On-premises application and a deployment group that targets tag `App=my-app`.
 6. CodePipeline: Source -> Build (CodeBuild) -> Deploy (CodeDeploy, input = build artifact).
-7. Open `http://<EC2-public-IP>/`. Change something, push, and watch the version update.
+7. Open `http://<EC2-public-IP>/`. Change something, push, and watch the version updat.
